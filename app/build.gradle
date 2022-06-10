@@ -1,0 +1,61 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id "androidx.navigation.safeargs"
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "com.amosh.marvelcomicsapp"
+        minSdk 24
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField 'String', "BASE_URL", '"https://gateway.marvel.com:443/v1/public/"'
+        buildConfigField 'String', "PUBLIC_KEY", '"31174fcad98eefb2fa88803cbd7d31bd"'
+        buildConfigField 'String', "PRIVATE_KEY", '"f7f7285e384621c8c10be800f1e0dc1a298b6603"'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        // Open data binding
+        dataBinding true
+        // Open view binding
+        viewBinding true
+    }
+    namespace 'com.amosh.marvelcomicsapp'
+}
+
+dependencies {
+    implementation project(":base")
+    implementation project(":common")
+    implementation project(":domain")
+    implementation project(":data")
+    implementation project(":remote")
+    implementation project(":local")
+    implementation project(":feature")
+
+    implementation "com.google.dagger:hilt-android:2.40.5"
+    kapt "com.google.dagger:hilt-android-compiler:2.40.5"
+}
